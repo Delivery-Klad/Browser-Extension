@@ -1,12 +1,24 @@
 {
-    "name": "Test",
-    "description": "Test",
-    "version": "0.1",
+    "name": "Shorts remover",
+    "description": "Remove shorts from youtube.com",
+    "version": "1.0",
     "manifest_version": 3,
-    "icons": {},
-    "action": {
-        "default_popup":"popup.html"
+    "icons": {
+        "48":"icons/48.png",
+        "96":"icons/96.png"
     },
-    "permissions": ["scripting", "activeTab"],
-    "background":{}
+    "action": {
+        "default_title": "Shorts remover",
+        "default_popup": "popup.html"
+    },
+    "permissions": ["storage", "scripting", "activeTab"],
+    "background":{},
+    "content_scripts": [
+        {
+            "matches": ["*://*.youtube.com/*"],
+            "all_frames": true,
+            "js": ["block.js"],
+            "css": ["block.css"]
+        }
+    ]
 }
