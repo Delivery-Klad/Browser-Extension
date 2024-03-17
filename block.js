@@ -41,7 +41,6 @@ function remove_shorts_block() {
     else if (window.location.pathname.includes("/@") === true) {
         var elements = document.querySelectorAll("#tabsContent yt-tab-group-shape yt-tab-shape");
         if (elements.length <= 1) { return; }
-        console.log(elements);
         elements.forEach(element => {
             var objects = element.querySelectorAll(".yt-tab-shape-wiz__tab");
             if (objects.length == 0) { return; }
