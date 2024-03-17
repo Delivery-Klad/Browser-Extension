@@ -44,7 +44,6 @@ function remove_shorts_block() {
         elements.forEach(element => {
             var objects = element.querySelectorAll(".yt-tab-shape-wiz__tab");
             if (objects.length == 0) { return; }
-            print(objects[0].textContent);
             if (objects[0].textContent.includes("Shorts") === true) {
                 element.remove();
                 return;
