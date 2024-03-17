@@ -1,4 +1,9 @@
-.shorts-blocker a[title='Shorts']{
+a[title='Shorts']{
+    display: none !important;
+    pointer-events: none !important;
+}
+
+.ytd-reel-shelf-renderer {
     display: none !important;
     pointer-events: none !important;
 }

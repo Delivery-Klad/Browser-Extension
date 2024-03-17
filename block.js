@@ -1,4 +1,6 @@
 var observer=null;
+var sub_path = "/feed/subscriptions";
+var watch_path = "/watch";
 
 function print(string) {
     console.log("[Extension]: " + string);
@@ -14,27 +16,46 @@ function init() {
             observer = null;
             observer.disconnect();
         }
-        document.body.classList.add("shorts-blocker");
+        //document.body.classList.add("shorts-blocker");
     });
 }
 
 function remove_shorts_block() {
     print("remover called");
-    var elements = document.querySelectorAll("#dismissible.ytd-rich-shelf-renderer, #dismissible.ytd-shelf-renderer");
-    if (elements.length <= 1) { return; }
-    elements.forEach(element => {
-        var objects = element.querySelectorAll("#dismissible #details");
-        if (objects.length == 0) { return; }
+    if (window.location.pathname == sub_path) {
+        var elements = document.querySelectorAll("#dismissible.ytd-rich-shelf-renderer, #dismissible.ytd-shelf-renderer");
+        if (elements.length <= 1) { return; }
+        elements.forEach(element => {
+            var objects = element.querySelectorAll("#dismissible #details");
+            if (objects.length == 0) { return; }
 
-        objects.forEach(href => {
-            var a_tag = href.querySelector("a");
-            if (a_tag === null) { return; }
-            if (a_tag.href.includes("shorts") === false) { return; }
+            objects.forEach(href => {
+                var a_tag = href.querySelector("a");
+                if (a_tag === null) { return; }
+                if (a_tag.href.includes("shorts") === false) { return; }
+            });
+            element.remove();
         });
-
-        element.remove();
-    });
-    print("Shorts removed from subscriptions");
+        print("Shorts removed from subscriptions page");
+    }
+    else if (window.location.pathname.includes("/@") === true) {
+        var elements = document.querySelectorAll("#tabsContent yt-tab-group-shape yt-tab-shape");
+        if (elements.length <= 1) { return; }
+        console.log(elements);
+        elements.forEach(element => {
+            var objects = element.querySelectorAll(".yt-tab-shape-wiz__tab");
+            if (objects.length == 0) { return; }
+            print(objects[0].textContent);
+            if (objects[0].textContent.includes("Shorts") === true) {
+                element.remove();
+                return;
+            }
+        });
+        print("Shorts removed from channel page");
+    }
+    else {
+        print(window.location.pathname);
+    }
 }
 
 print("init");
