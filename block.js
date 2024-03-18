@@ -7,6 +7,7 @@ function print(string) {
 }
 
 function init() {
+    print("init");
     chrome.storage.local.get(null, function(value) {
         if (observer === null) {
             observer = new MutationObserver(remove_shorts_block);
@@ -56,5 +57,4 @@ function remove_shorts_block() {
     }
 }
 
-print("init");
 init();
