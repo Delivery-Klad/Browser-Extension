@@ -2,28 +2,36 @@ var observer=null;
 var sub_path = "/feed/subscriptions";
 var watch_path = "/watch";
 
-function print(string) {
-    console.log("[Extension]: " + string);
+
+function print(content) {
+    console.log("[Extension]: " + content);
+}
+
+function info(content) {
+    console.log(content);
 }
 
 function init() {
     print("init");
     chrome.storage.local.get(null, function(value) {
-        if (observer === null) {
-            observer = new MutationObserver(remove_shorts_block);
-            observer.observe(document.getElementById("content"), {childList:true, subtree:true});
-        }
-        else {
-            observer = null;
-            observer.disconnect();
-        }
+        observer = new MutationObserver(remove_shorts_block);
+        observer.observe(document.getElementById("content"), {childList:true, subtree:true});
     });
 }
 
-function remove_shorts_block(mutations_list, local_observer) {
-    //console.log(mutations_list);
-    //console.log(local_observer);
+function remove_shorts_block(mutations, local_observer) {
+    var skip = true;
+    //var correct_mutation = null;
+    for (var mutation of mutations) {
+        if (mutation.target.id == "contents") {
+            skip = false;
+            //correct_mutation = mutation;
+            break;
+        }
+    }
+    if (skip == true) { return; }
     print("remover called");
+    //info(correct_mutation);
     if (window.location.pathname == sub_path) {
         var elements = document.querySelectorAll("#dismissible.ytd-rich-shelf-renderer, #dismissible.ytd-shelf-renderer");
         if (elements.length <= 1) { return; }
