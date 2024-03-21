@@ -17,11 +17,12 @@ function init() {
             observer = null;
             observer.disconnect();
         }
-        //document.body.classList.add("shorts-blocker");
     });
 }
 
-function remove_shorts_block() {
+function remove_shorts_block(mutations_list, local_observer) {
+    //console.log(mutations_list);
+    //console.log(local_observer);
     print("remover called");
     if (window.location.pathname == sub_path) {
         var elements = document.querySelectorAll("#dismissible.ytd-rich-shelf-renderer, #dismissible.ytd-shelf-renderer");
