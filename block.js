@@ -20,18 +20,20 @@ function init() {
 }
 
 function remove_shorts_block(mutations, local_observer) {
+    /*
     var skip = true;
-    //var correct_mutation = null;
+    var correct_mutation = null;
     for (var mutation of mutations) {
-        if (mutation.target.id == "contents") {
+        if (mutation.target.id.includes("content")) {
             skip = false;
-            //correct_mutation = mutation;
+            correct_mutation = mutation;
             break;
         }
     }
     if (skip == true) { return; }
     print("remover called");
-    //info(correct_mutation);
+    info(correct_mutation);
+    */
     if (window.location.pathname == sub_path) {
         var elements = document.querySelectorAll("#dismissible.ytd-rich-shelf-renderer, #dismissible.ytd-shelf-renderer");
         if (elements.length <= 1) { return; }
